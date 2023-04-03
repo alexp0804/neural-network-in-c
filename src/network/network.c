@@ -137,6 +137,7 @@ float network_test(network *n, sample *test_set)
     for (int i = 0; i < N_TEST_SAMPLES; i++)
     {
         percent_complete = i / (float) N_TEST_SAMPLES * 100;
+        fprintf(stderr, "Testing... %.2f%% complete.\r", percent_complete);
 
         sample *s = test_set + i;
         matrix *data = s->data;

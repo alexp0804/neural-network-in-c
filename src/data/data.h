@@ -11,10 +11,10 @@
 // intelligent way. This program will load the *entire* 60,000 matrices of 728 floats into memory
 // if you permit it to do so. When I did, it took up nearly 3 GB of memory. Proceed with caution!
 
-// #define N_TRAIN_SAMPLES 60000
+// #define N_TRAIN_SAMPLES 30000
 // #define N_TEST_SAMPLES 10000
 
-#define N_TRAIN_SAMPLES 60000
+#define N_TRAIN_SAMPLES 30000
 #define N_TEST_SAMPLES 500
 
 #define TRAIN_FILE "mnist_data/mnist_train.txt"
