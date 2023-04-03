@@ -14,3 +14,5 @@ I trained the network on $60,000$ samples from the MNIST dataset with a network 
 With this training, I am able to achieve anywhere from 88% - 93% accuracy! This is pretty good considering there is no convolution or deep learning going on.
 
 ![Screenshot 2023-04-03 023841](https://user-images.githubusercontent.com/68084954/229430466-c7233e0d-a654-4c69-aee9-615781ce6e2c.png)
+
+Inspired by this [blog post](https://sausheong.github.io/posts/how-to-build-a-simple-artificial-neural-network-with-go/).
