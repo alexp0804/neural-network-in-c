@@ -1,8 +1,8 @@
 
-#include "common.h"
-#include "matrix/matrix.c"
-#include "data/data.c"
-#include "network/network.c"
+#include "../include/common.h"
+#include "matrix.c"
+#include "data.c"
+#include "network.c"
 
 int main(int argc, char **argv)
 {
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     // Must run with "train" or "test"
     if (argc != 2)
     {
-        fprintf(stderr, "Please specify whether to train or test.\n");
+        fprintf(stderr, "Usage: <test / train>\n");
         exit(EXIT_FAILURE);
     }
 
@@ -40,6 +40,10 @@ int main(int argc, char **argv)
         sample *test_set = load_test();
         network_test(net, test_set);
         free_samples(N_TEST_SAMPLES, test_set);
+    }
+    else
+    {
+        fprintf(stderr, "Usage: <test / train>\n");
     }
 
     network_free(net);

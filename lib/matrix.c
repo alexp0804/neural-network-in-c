@@ -2,9 +2,9 @@
 #ifndef MATRIX_C
 #define MATRIX_C
 
-#include "matrix.h"
-#include "../data/data.h"
-#include "../common.h"
+#include "../include/matrix.h"
+#include "../include/data.h"
+#include "../include/common.h"
 
 matrix *matrix_new(int row, int col)
 {

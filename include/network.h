@@ -2,8 +2,8 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include "../matrix/matrix.h"
-#include "../data/data.h"
+#include "matrix.h"
+#include "data.h"
 
 typedef struct {
     int input, hidden, output;

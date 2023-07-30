@@ -1,4 +1,4 @@
 .PHONY: main
 
 main:
-	gcc src/main.c -o main -lm -O3 -Wno-unused-result
+	gcc lib/main.c -o main -lm -O3 -Wno-unused-result

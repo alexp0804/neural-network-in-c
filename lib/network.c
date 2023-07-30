@@ -1,5 +1,5 @@
 
-#include "network.h"
+#include "../include/network.h"
 
 #ifndef NETWORK_C
 #define NETWORK_C
@@ -105,6 +105,9 @@ void network_update(network *n, sample *s)
         n->learning_rate
     );
 
+    // Perhaps a better way to write this would to use intermediate matrices rather than reallocating
+    // and freeing for each computation, but the code is easier to read this way, at the cost of
+    // time to execute.
     matrix_free(output);
     matrix_free(hidden_values);
     matrix_free(hidden_output);
@@ -125,7 +128,7 @@ void network_train(network *n, sample *training_set)
         fprintf(stderr, "Training... %.2f%% complete.\r", percent_complete);
         network_update(n, training_set + i);
     }
-    fprintf(stderr, "\nDone!\nSaving to %s\n", NETWORK_FILE);
+    fprintf(stderr, "\33[2KDone!\nSaving to %s\n", NETWORK_FILE);
     
     network_save(n, NETWORK_FILE);
 }
@@ -150,10 +153,12 @@ float network_test(network *n, sample *test_set)
         correct += (pred == label);
     }
 
-    fprintf(stderr, "\nDone!\n");
-    fprintf(stderr, "\nAccuracy: %.2f%%\n", (float) correct / N_TEST_SAMPLES * 100);
+    float accuracy = (float) correct / N_TEST_SAMPLES * 100;
 
-    return (float) correct / N_TEST_SAMPLES * 100;
+    fprintf(stderr, "\33[2KDone testing!\n");
+    fprintf(stderr, "\nThe model had an accuracy of: %.2f%%\n%s\n", accuracy, (accuracy >= 80) ? "(Wow!)" : "(Rough.)");
+
+    return accuracy;
 }
 
 void network_write(network *n, FILE *f)
