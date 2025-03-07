@@ -1,4 +1,3 @@
-
 #include "../include/network.h"
 
 #ifndef NETWORK_C
@@ -22,6 +21,7 @@ network *network_new(int in, int hid, int out, float lr)
 
     return new;
 }
+
 void network_free(network *n)
 {
     matrix_free(n->hidden_weights);
@@ -46,6 +46,7 @@ matrix *network_predict(network *n, matrix *input)
 
     return result;
 }
+
 void backprop(matrix *weights, matrix *error, matrix *inputs, matrix *outputs, float lr) 
 {
     // backpropagate
@@ -73,6 +74,7 @@ void backprop(matrix *weights, matrix *error, matrix *inputs, matrix *outputs, f
     matrix_free(sig_prime);
     matrix_free(inputs_t);
 }
+
 void network_update(network *n, sample *s)
 {
     matrix *input = s->data;
@@ -129,9 +131,10 @@ void network_train(network *n, sample *training_set)
         network_update(n, training_set + i);
     }
     fprintf(stderr, "\33[2KDone!\nSaving to %s\n", NETWORK_FILE);
-    
+
     network_save(n, NETWORK_FILE);
 }
+
 float network_test(network *n, sample *test_set)
 {
     int correct = 0;
@@ -149,7 +152,7 @@ float network_test(network *n, sample *test_set)
         matrix *prediction = network_predict(n, data);
         int pred = matrix_onehot_decode(prediction);
         matrix_free(prediction);
-        
+
         correct += (pred == label);
     }
 
@@ -167,12 +170,14 @@ void network_write(network *n, FILE *f)
     matrix_write(n->hidden_weights, f);
     matrix_write(n->output_weights, f);
 }
+
 void network_save(network *n, char *file_name)
 {
     FILE *f = fopen(file_name, "w");
     network_write(n, f);
     fclose(f);
 }
+
 network *network_load(char *file_name)
 {
     FILE *f = fopen(file_name, "r");

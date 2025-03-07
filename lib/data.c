@@ -1,10 +1,9 @@
-
 #ifndef DATA_C
 #define DATA_C
 
 #include "../include/data.h"
 
-sample *allocate_samples(int n_samples, char *file_name) 
+sample *allocate_samples(int n_samples, char *file_name)
 {
     sample *samples = malloc(sizeof(sample) * n_samples);
 
@@ -41,9 +40,9 @@ sample *allocate_samples(int n_samples, char *file_name)
 
 void free_samples(int n_samples, sample *s)
 {
-    for (int i = 0; i < n_samples; i++) 
+    for (int i = 0; i < n_samples; i++)
         matrix_free(s[i].data);
-    
+
     free(s);
 }
 

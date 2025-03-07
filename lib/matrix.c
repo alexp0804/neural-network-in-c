@@ -1,4 +1,3 @@
-
 #ifndef MATRIX_C
 #define MATRIX_C
 
@@ -24,6 +23,7 @@ matrix *matrix_new(int row, int col)
 
     return new;
 }
+
 void matrix_free(matrix *m)
 {
     if (!m) return;
@@ -34,6 +34,7 @@ void matrix_free(matrix *m)
     free(m->entries);
     free(m);
 }
+
 matrix *matrix_copy(matrix *m)
 {
     if (!m) return NULL;
@@ -61,12 +62,14 @@ matrix *matrix_flatten(matrix *m)
 
     return flat;
 }
+
 void matrix_transpose(matrix *m)
 {
     matrix *transpose = matrix_transpose_new(m);
     matrix_free(m);
     m = transpose;
 }
+
 matrix *matrix_transpose_new(matrix *m)
 {
     if (!m) return NULL;
@@ -88,6 +91,7 @@ void matrix_write(matrix *m, FILE *f)
         for (int j = 0; j < m->col; j++)
             fprintf(f, "%f%s", m->entries[i][j], (j == m->col - 1 ? "\n" : " "));
 }
+
 void matrix_save(matrix *m, char *file_name)
 {
     if (!m) return;
@@ -97,6 +101,7 @@ void matrix_save(matrix *m, char *file_name)
 
     fclose(f);
 }
+
 matrix *matrix_read(FILE *f)
 {
     int row, col;
@@ -110,6 +115,7 @@ matrix *matrix_read(FILE *f)
 
     return m;
 }
+
 matrix *matrix_load(char *file_name)
 {
     FILE *f = fopen(file_name, "r");
@@ -134,6 +140,7 @@ matrix *matrix_dot(matrix *m, matrix *n)
 
     return prod;
 }
+
 matrix *matrix_multiply(matrix *m , matrix *n)
 {
     if (!m || !n)
@@ -163,6 +170,7 @@ void matrix_add(matrix *m, matrix *n)
         for (int j = 0; j < m->col; j++)
             m->entries[i][j] += n->entries[i][j];
 }
+
 matrix *matrix_add_new(matrix *m, matrix *n)
 {
     if (!m || !n)
@@ -189,6 +197,7 @@ void matrix_subtract(matrix *m, matrix *n)
         for (int j = 0; j < m->col; j++)
             m->entries[i][j] -= n->entries[i][j];
 }
+
 matrix *matrix_subtract_new(matrix *m, matrix *n)
 {
     if (!m || !n)
@@ -212,6 +221,7 @@ void matrix_scale(matrix *m, float s)
         for (int j = 0; j < m->col; j++)
             m->entries[i][j] *= s;
 }
+
 matrix *matrix_scale_new(matrix *m, float s)
 {
     if (!m)
@@ -232,11 +242,12 @@ void matrix_add_scalar(matrix *m, float s)
         for (int j = 0; j < m->col; j++)
             m->entries[i][j] += s;
 }
+
 matrix *matrix_add_scalar_new(matrix *m, float s)
 {
     if (!m)
         return NULL;
-    
+
     matrix *result = matrix_copy(m);
     matrix_add_scalar(result, s);
 
@@ -251,6 +262,7 @@ void matrix_randomize(matrix *m)
         for (int j = 0; j < m->col; j++)
             m->entries[i][j] = (float) rand() / (float) (RAND_MAX);
 }
+
 void matrix_fill(matrix *m, float s)
 {
     for (int i = 0; i < m->row; i++)
@@ -262,6 +274,7 @@ float sigmoid(float x)
 {
     return 1 / (1 + exp(-x));
 }
+
 matrix *matrix_sigmoid(matrix *m)
 {
     matrix *result = matrix_copy(m);
@@ -272,6 +285,7 @@ matrix *matrix_sigmoid(matrix *m)
 
     return result;
 }
+
 matrix *matrix_sigmoid_prime(matrix *m)
 {
     matrix *n = matrix_sigmoid(m);
@@ -297,7 +311,7 @@ matrix *matrix_softmax(matrix *m)
     for (int i = 0; i < m->row; i++) {
         sum += exp(m->entries[i][0]);
     }
-    
+
     matrix *result = matrix_new(m->row, 1);
 
     for (int i = 0; i < m->row; i++)
@@ -312,6 +326,7 @@ matrix *matrix_onehot_encode(int label)
     encoded->entries[label][0] = 1;
     return encoded;
 }
+
 int matrix_onehot_decode(matrix *label)
 {
     int max = 0;
